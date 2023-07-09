@@ -13,10 +13,12 @@ jobs:
     steps:
         - name: Create a file
           run: echo ${{ matrix.python-version }} > my_file.txt
+          
         - name: Accidentally upload to the same artifact via multiple jobs
           uses: actions/upload-artifact@v3
+          
           with:
-              name: my-artifact
+              name: my-artifact-${{ matrix.python-version }}
               path: ${{ github.workspace }}
               
         - uses: actions/checkout@v3
