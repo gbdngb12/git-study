@@ -1,4 +1,4 @@
-name: Python
+name: Python_version_check
 
 on: workflow_dispatch
 
