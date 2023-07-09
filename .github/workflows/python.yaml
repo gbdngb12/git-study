@@ -27,3 +27,12 @@ jobs:
         with:
           name: python-versions
           path: ${{ github.workspace }}
+          
+      - name: Save Logs as Artifact
+        run: echo "${{ steps.python-version.outputs.stdout }}" > ${{ github.workspace }}/log.txt
+
+      - name: Upload Log Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: log-${{ github.run_id }}
+          path: ${{ github.workspace }}/log.txt
