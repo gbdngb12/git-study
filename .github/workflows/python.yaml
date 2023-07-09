@@ -11,6 +11,19 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
 
+    name: Verify Python Versions
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-python-versions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -29,3 +42,4 @@ jobs:
         with:
           name: python-versions
           path: ${{ github.workspace }}
+
