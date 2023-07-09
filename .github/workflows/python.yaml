@@ -19,11 +19,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Verify Python Version
-        run: python --version | tee ${{ github.workspace }}/log.txt
-        id: python-version
+        run: |
+          python --version
+          echo "##[group]Saving Logs"
+          echo "${{ github.job }} - ${{ github.run_id }}" >> ${{ github.workspace }}/logs.txt
+          echo "::save-state name=logs::${{ github.workspace }}/logs.txt"
+          echo "##[endgroup]"
 
-      - name: Upload Log Artifact
+      - name: Upload Logs Artifact
         uses: actions/upload-artifact@v2
         with:
           name: log-${{ github.run_id }}
-          path: ${{ github.workspace }}/log.txt
+          path: ${{ github.workspace }}/logs.txt
