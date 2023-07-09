@@ -1,24 +1,9 @@
-name: Verify Python Versions
-on:
-  push:
-    branches:
-      - main
+name: Python
+
+on: workflow_dispatch
 
 jobs:
-  verify-python-versions:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
-
-    name: Verify Python Versions
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  verify-python-versions:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -42,4 +27,3 @@ jobs:
         with:
           name: python-versions
           path: ${{ github.workspace }}
-
