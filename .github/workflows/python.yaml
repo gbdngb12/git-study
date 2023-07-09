@@ -1,4 +1,4 @@
-name: Python
+name: Python_version_check
 
 on: workflow_dispatch
 
@@ -7,13 +7,28 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8"]
+        python-version: ["3.8", "3.9", "3.10"]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+
+      - name: Verify Python Version
+        run: python --version
+        
+      - name: Save Logs as Artifact
+        id: save-logs
+        run: |
+          mkdir -p /.github/workflows/logs
+          echo "::set-output name=logs::/.github/workflows/logs/logs.txt"
+
+      - name: Upload Logs Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: action-logs
+          path: ${{ steps.save-logs.outputs.logs }}
