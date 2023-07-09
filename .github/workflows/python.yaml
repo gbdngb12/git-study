@@ -24,8 +24,8 @@ jobs:
       - name: Save Logs as Artifact
         id: save-logs
         run: |
-          mkdir -p /.github/workflows/logs
-          echo "::set-output name=logs::/.github/workflows/logs/logs.txt"
+          mkdir -p ${{ github.workspace }}/.github/workflows/logs
+          echo "::set-output name=logs::${{ github.workspace }}/.github/workflows/logs/logs.txt"
 
       - name: Upload Logs Artifact
         uses: actions/upload-artifact@v2
