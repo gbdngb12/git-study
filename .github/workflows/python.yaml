@@ -17,14 +17,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
         id: display-version
-        run: |
-          echo "::set-output name=version::$(python -c 'import sys; print(sys.version)')"
-      - name: Create Artifact Directory
-        run: mkdir -p artifacts/python${{ matrix.python-version }}_artifact
-      - name: Save Python version to file
-        run: echo "${{ steps.display-version.outputs.version }}" > artifacts/python${{ matrix.python-version }}_artifact/python_version.txt
+        run: python -c "import sys; open('python_version.txt', 'w').write(sys.version)"
       - name: Upload Artifacts  
         uses: actions/upload-artifact@v2
         with:
           name: python${{ matrix.python-version }}_artifact
-          path: artifacts/python${{ matrix.python-version }}_artifact
+          path: python_version.txt
